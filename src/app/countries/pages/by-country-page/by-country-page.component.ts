@@ -10,13 +10,15 @@ import { CountriesService } from '../../services/countries.service';
 })
 export class ByCountryPageComponent implements OnInit{
 
-  countries: Country[];
-  initialValue: string = '';
+  public countries: Country[];
+  public initialValue: string = '';
+  public isLoading: boolean = false;
+  
 
   constructor( 
     private readonly _countrySrv: CountriesService,
   ){
-    this.countries = []
+    this.countries = [];
   }
 
   ngOnInit(): void {
@@ -25,9 +27,10 @@ export class ByCountryPageComponent implements OnInit{
   }
 
   searchByCapital(value: string): void{
+    this.isLoading = true;
     this._countrySrv.searchByCountry(value).subscribe(countries => {
-      this.countries = countries
+      this.countries = countries;
+      this.isLoading = false;
     });
-    // console.log({value})
   }
 }

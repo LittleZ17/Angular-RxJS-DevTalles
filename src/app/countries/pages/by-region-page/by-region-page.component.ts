@@ -13,10 +13,12 @@ import { Region } from '../../interfaces/region.type';
 })
 export class ByRegionPageComponent implements OnInit {
 
-  countries: Country[];
+  public countries: Country[];
   public regions: Region[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   public selectedRegion?: Region;
   public initialValue: string = ''
+  public isLoading = false;
+
 
   constructor(private readonly _countrySrv: CountriesService){
     this.countries = []
@@ -29,9 +31,11 @@ export class ByRegionPageComponent implements OnInit {
 
   searchByRegion( term: Region ){
     this.selectedRegion = term;
+    this.isLoading = true;
 
     this._countrySrv.searchByRegion(term).subscribe( countries => {
       this.countries = countries;
+      this.isLoading = false; 
     })
   }
 
