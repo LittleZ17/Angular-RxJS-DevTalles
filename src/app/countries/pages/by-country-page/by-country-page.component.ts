@@ -8,9 +8,10 @@ import { CountriesService } from '../../services/countries.service';
   styles: [
   ]
 })
-export class ByCountryPageComponent {
+export class ByCountryPageComponent implements OnInit{
 
   countries: Country[];
+  initialValue: string = '';
 
   constructor( 
     private readonly _countrySrv: CountriesService,
@@ -18,10 +19,15 @@ export class ByCountryPageComponent {
     this.countries = []
   }
 
+  ngOnInit(): void {
+    this.countries = this._countrySrv.cacheStore.byCountry.countries;
+    this.initialValue = this._countrySrv.cacheStore.byCountry.term;
+  }
+
   searchByCapital(value: string): void{
     this._countrySrv.searchByCountry(value).subscribe(countries => {
       this.countries = countries
     });
-    console.log({value})
+    // console.log({value})
   }
 }
