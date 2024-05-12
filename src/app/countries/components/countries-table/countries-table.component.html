@@ -21,12 +21,11 @@
                 <td>
                     <img [src]="country.flags.svg" [alt]="country.name.common">
                 </td>
-                <!-- <td>{{ country.flag }}</td> -->
                 <td>{{ country.name.common }}</td>
                 <td>{{ country.capital }}</td>
                 <td>{{ country.population | number }}</td>
                 <td>
-                    <a href="">Ver más</a>
+                    <a [routerLink]="['/countries/by', country.cca3]">Info</a>
                 </td>
             </tr>
         </tbody>
